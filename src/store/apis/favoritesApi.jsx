@@ -1,19 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// DEV ONLY!!!
-const pause = (duration) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, duration);
-  });
-};
-
 const favoritesApi = createApi({
   reducerPath: 'favorites',          //Bliver til navnet på vores state i storen
   baseQuery: fetchBaseQuery({     //fetchBaseQuery er en funktion fra RTK Query, som vi bruger til at lave vores baseQuery - preconfigureret fetch
     baseUrl: 'http://localhost:3005',
     fetchFn: async (...args) => {
-      // REMOVE FOR PRODUCTION - DEV ONLY!!!
-      await pause(1000);
       return fetch(...args);     //preconfiguret version af 'fetch' der er klar til at lave requests til vores API
     },
   }),
