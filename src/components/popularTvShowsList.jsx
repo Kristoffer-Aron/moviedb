@@ -1,13 +1,19 @@
-import { useFetchPopularTvShowsQuery } from "../store";
+import { useState } from 'react';
+import { useFetchPopularTvShowsQuery, useFetchPopularTvShowsByGenreQuery } from "../store";
 import TvShowCard from "./tvShowCard"
+import GenreFilter from "./genreFilter"
+import SearchPerson from "./searchPerson"
 
-function PopularTvShowsList() {                                      //Bemærk Query-function kaldes automatisk når komponenten bliver displayed
-  const {data, error, isFetching } = useFetchPopularTvShowsQuery();  //kaldet vil straks hente data i et result-objekt, som vi "destructure" til data, error og isLoading
-                                                                    //Bemærk Mutation-function returnere et array med en function, som kan kaldes når data skal ændres
-  //console.log(data, error, isFetching);                           //samt et objekt results der er meget tilsvarende det der returneres fra et Query-function kald
-                                                                    //til start er results objektet "uinitialiseret", efter kaldet af funktionen vil det indeholde mange flere properties
-                                                                    //med relevante værdier fx data, isSucces/isError mm
-let content;
+function PopularTvShowsList() {
+  const [selectedGenre, setSelectedGenre] = useState('');
+  const { data: allShows, error: allError, isFetching: allFetching } = useFetchPopularTvShowsQuery(undefined, { skip: selectedGenre !== '' });
+  const { data: genreShows, error: genreError, isFetching: genreFetching } = useFetchPopularTvShowsByGenreQuery(selectedGenre, { skip: selectedGenre === '' });
+
+  const data = selectedGenre ? genreShows : allShows;
+  const error = selectedGenre ? genreError : allError;
+  const isFetching = selectedGenre ? genreFetching : allFetching;
+
+  let content;
   if (isFetching) {
     content = <div>Loading;</div>
   } else if (error) {
@@ -17,10 +23,17 @@ let content;
       return <TvShowCard key={tvshow.id} tvshow={tvshow}></TvShowCard>
     });
   }
-    return (
-    <div className="row row-cols-3 row-cols-md-2 m-4">
-      {content}
-    </div>
+
+  return (
+    <>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px' }}>
+        <GenreFilter type="tv" onGenreSelect={setSelectedGenre} />
+        <SearchPerson />
+      </div>
+      <div className="row row-cols-3 row-cols-md-2 m-4">
+        {content}
+      </div>
+    </>
   );
 }
 export default PopularTvShowsList;

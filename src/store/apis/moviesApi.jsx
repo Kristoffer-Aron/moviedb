@@ -76,9 +76,58 @@ const moviesApi = createApi({
           };
         },
       }),
+      fetchSearchPerson: builder.query({
+        query: (searchTerm) => {
+          return {
+            url: 'search/person',
+            params: {
+              query: searchTerm,
+              api_key: '95e34df0a98601764ebc91fa99e2daff'
+            },
+            method: 'GET',
+          };
+        },
+      }),
+      fetchMovieGenres: builder.query({
+        query: () => {
+          return {
+            url: 'genre/movie/list',
+            params: {
+              api_key: '95e34df0a98601764ebc91fa99e2daff'
+            },
+            method: 'GET',
+          };
+        },
+      }),
+      fetchPopularMoviesByGenre: builder.query({
+        query: (genreId) => {
+          return {
+            url: 'discover/movie',
+            params: {
+              sort_by: 'popularity.desc',
+              with_genres: genreId,
+              api_key: '95e34df0a98601764ebc91fa99e2daff'
+            },
+            method: 'GET',
+          };
+        },
+      }),
+      fetchHighestRatedMoviesByGenre: builder.query({
+        query: (genreId) => {
+          return {
+            url: 'discover/movie',
+            params: {
+              sort_by: 'vote_average.desc',
+              with_genres: genreId,
+              api_key: '95e34df0a98601764ebc91fa99e2daff'
+            },
+            method: 'GET',
+          };
+        },
+      }),
     };
   },
 });
 
-export const {useFetchPopularMoviesQuery, useFetchHighestRatedMoviesQuery, useFetchSearchMovieQuery, useFetchUpcomingMoviesQuery, useFetchMovieVideosQuery, useFetchMovieDetailsQuery} = moviesApi;
+export const {useFetchPopularMoviesQuery, useFetchHighestRatedMoviesQuery, useFetchSearchMovieQuery, useFetchUpcomingMoviesQuery, useFetchMovieVideosQuery, useFetchMovieDetailsQuery, useFetchSearchPersonQuery, useFetchMovieGenresQuery, useFetchPopularMoviesByGenreQuery, useFetchHighestRatedMoviesByGenreQuery} = moviesApi;
 export { moviesApi };

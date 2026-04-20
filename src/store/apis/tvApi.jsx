@@ -76,9 +76,46 @@ const tvApi = createApi({
           };
         },
       }),
+      fetchTvGenres: builder.query({
+        query: () => {
+          return {
+            url: 'genre/tv/list',
+            params: {
+              api_key: '95e34df0a98601764ebc91fa99e2daff'
+            },
+            method: 'GET',
+          };
+        },
+      }),
+      fetchPopularTvShowsByGenre: builder.query({
+        query: (genreId) => {
+          return {
+            url: 'discover/tv',
+            params: {
+              sort_by: 'popularity.desc',
+              with_genres: genreId,
+              api_key: '95e34df0a98601764ebc91fa99e2daff'
+            },
+            method: 'GET',
+          };
+        },
+      }),
+      fetchHighestRatedTvShowsByGenre: builder.query({
+        query: (genreId) => {
+          return {
+            url: 'discover/tv',
+            params: {
+              sort_by: 'vote_average.desc',
+              with_genres: genreId,
+              api_key: '95e34df0a98601764ebc91fa99e2daff'
+            },
+            method: 'GET',
+          };
+        },
+      }),
     };
   },
 });
 
-export const {useFetchPopularTvShowsQuery, useFetchHighestRatedTvShowsQuery, useFetchSearchTvShowQuery, useFetchAiringTodayTvShowsQuery, useFetchTvVideosQuery, useFetchTvDetailsQuery} = tvApi;
+export const {useFetchPopularTvShowsQuery, useFetchHighestRatedTvShowsQuery, useFetchSearchTvShowQuery, useFetchAiringTodayTvShowsQuery, useFetchTvVideosQuery, useFetchTvDetailsQuery, useFetchTvGenresQuery, useFetchPopularTvShowsByGenreQuery, useFetchHighestRatedTvShowsByGenreQuery} = tvApi;
 export { tvApi };

@@ -9,6 +9,7 @@ import MovieDetail from "./components/movieDetail";
 import FavoritesList from "./components/favoritesList";
 import SearchMovie from "./components/searchMovie";
 import SearchedMovieList from "./components/searchedMovieList";
+import SearchedPersonList from "./components/searchedPersonList";
 import MovieImg from './assets/Image/movie_black2.jpg';
 import Home from './components/home';
 
@@ -41,6 +42,7 @@ function App() {
             <Route path='/favorites' element={<FavoritesList/>} />
             <Route path='/movie/:movieId' element={<MovieDetail/>} />
             <Route path='/searchedMovie' element={<SearchedMovieList/>} />
+            <Route path='/searchedPerson' element={<SearchedPersonList/>} />
             <Route path='/popular-tv' element={<PopularTvShowsList/>} />
             <Route path='/highest-rated-tv' element={<HighestRatedTvShowsList/>} /> 
             <Route path='/airing-today-tv' element={<AiringTodayTvShowsList/>} />
