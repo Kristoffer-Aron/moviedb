@@ -42,10 +42,43 @@ const moviesApi = createApi({
             method: 'GET',
           };
         },
-      }),  
+      }),
+      fetchUpcomingMovies: builder.query({
+        query: () => {
+          return {
+            url: 'movie/upcoming',
+            params: {
+              api_key: '95e34df0a98601764ebc91fa99e2daff'
+            },
+            method: 'GET',
+          };
+        },
+      }),
+      fetchMovieVideos: builder.query({
+        query: (movieId) => {
+          return {
+            url: `movie/${movieId}/videos`,
+            params: {
+              api_key: '95e34df0a98601764ebc91fa99e2daff'
+            },
+            method: 'GET',
+          };
+        },
+      }),
+      fetchMovieDetails: builder.query({
+        query: (movieId) => {
+          return {
+            url: `movie/${movieId}`,
+            params: {
+              api_key: '95e34df0a98601764ebc91fa99e2daff'
+            },
+            method: 'GET',
+          };
+        },
+      }),
     };
   },
 });
 
-export const {useFetchPopularMoviesQuery, useFetchHighestRatedMoviesQuery, useFetchSearchMovieQuery} = moviesApi;
+export const {useFetchPopularMoviesQuery, useFetchHighestRatedMoviesQuery, useFetchSearchMovieQuery, useFetchUpcomingMoviesQuery, useFetchMovieVideosQuery, useFetchMovieDetailsQuery} = moviesApi;
 export { moviesApi };
