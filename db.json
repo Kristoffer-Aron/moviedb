@@ -1,3 +1,22 @@
 {
-  "favorites": []
+  "favorites": [
+    {
+      "userId": 1,
+      "movieId": 1226863,
+      "mediaType": "movie",
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "tvShowId": 76479,
+      "mediaType": "tv",
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "tvShowId": 95557,
+      "mediaType": "tv",
+      "id": 3
+    }
+  ]
 }

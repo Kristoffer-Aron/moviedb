@@ -21,7 +21,7 @@ function TvShowCard({tvshow}){
             }
         } else {
             // Add to favorites
-            await addFavorite({ id: user.id, favoriteTvShowId: tvshow.id });
+            await addFavorite({ id: user.id, favoriteTvShowId: tvshow.id, mediaType: 'tv' });
         }
     };
 

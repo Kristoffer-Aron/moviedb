@@ -21,7 +21,7 @@ function MovieCard({movie}){
             }
         } else {
             // Add to favorites
-            await addFavorite({ id: user.id, favoriteMovieId: movie.id });
+            await addFavorite({ id: user.id, favoriteMovieId: movie.id, mediaType: 'movie' });
         }
     };
 

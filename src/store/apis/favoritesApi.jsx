@@ -32,6 +32,8 @@ const favoritesApi = createApi({
             body: {
               userId: user.id,
               movieId: user.favoriteMovieId,
+              tvShowId: user.favoriteTvShowId,
+              mediaType: user.mediaType,
             },
           };
         },

@@ -1,4 +1,5 @@
 import { useFetchFavoritesQuery, useRemoveFavoriteMutation, useFetchMovieDetailsQuery } from "../store";
+import { useFetchTvDetailsQuery } from "../store/apis/tvApi";
 import MovieCard from "./movieCard";
 
 function FavoritesList() {
@@ -20,10 +21,11 @@ function FavoritesList() {
     content = (
       <div className="row">
         {favorites.map((favorite) => (
-          <FavoriteMovieCard
+          <FavoriteCard
             key={favorite.id}
             favoriteId={favorite.id}
-            movieId={favorite.movieId}
+            contentId={favorite.movieId || favorite.tvShowId}
+            mediaType={favorite.mediaType || (favorite.movieId ? 'movie' : 'tv')}
             onRemove={handleRemoveFavorite}
           />
         ))}
@@ -41,27 +43,34 @@ function FavoritesList() {
   );
 }
 
-function FavoriteMovieCard({ favoriteId, movieId, onRemove }) {
-  const { data: movie, error, isFetching } = useFetchMovieDetailsQuery(movieId);
+function FavoriteCard({ favoriteId, contentId, mediaType, onRemove }) {
+  const { data: movie, error: movieError, isFetching: movieFetching } = useFetchMovieDetailsQuery(contentId, { skip: mediaType !== 'movie' });
+  const { data: tvShow, error: tvError, isFetching: tvFetching } = useFetchTvDetailsQuery(contentId, { skip: mediaType !== 'tv' });
+
+  const isFetching = mediaType === 'movie' ? movieFetching : tvFetching;
+  const error = mediaType === 'movie' ? movieError : tvError;
+  const data = mediaType === 'movie' ? movie : tvShow;
+  const displayTitle = mediaType === 'movie' ? data?.title : data?.name;
+  const displayDate = mediaType === 'movie' ? data?.release_date : data?.first_air_date;
 
   if (isFetching) {
     return (
       <div className="col-lg-2 mb-4">
         <div className="card">
           <div className="card-body">
-            <div>Loading movie...</div>
+            <div>Loading...</div>
           </div>
         </div>
       </div>
     );
   }
 
-  if (error || !movie) {
+  if (error || !data) {
     return (
       <div className="col-lg-2 mb-4">
         <div className="card">
           <div className="card-body">
-            <div>Error loading movie</div>
+            <div>Error loading</div>
           </div>
         </div>
       </div>
@@ -71,19 +80,19 @@ function FavoriteMovieCard({ favoriteId, movieId, onRemove }) {
   return (
     <div className="col-lg-2 mb-4">
       <div className="card">
-        <img src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`} className="card-img-top" alt="..." />
+        <img src={`https://image.tmdb.org/t/p/w185${data.poster_path}`} className="card-img-top" alt="..." />
         <div className="card-body">
-          <h5 className="card-title">{movie.title.substring(0, 200)}</h5>
+          <h5 className="card-title">{displayTitle?.substring(0, 200)}</h5>
           <span
             className="fas fa-star text-warning"
             aria-hidden="true"
             style={{cursor: 'pointer'}}
             onClick={() => onRemove(favoriteId)}
           ></span>
-          <span className="ml-1">{movie.vote_average}</span>
-          <p className="card-text">{movie.overview.substring(0, 125).concat('....')}</p>
+          <span className="ml-1">{data.vote_average}</span>
+          <p className="card-text">{data.overview?.substring(0, 125).concat('....')}</p>
           <div className="d-flex justify-content-between p-0">
-            <span className="far fa-calendar" aria-hidden="true"> {movie.release_date}</span>
+            <span className="far fa-calendar" aria-hidden="true"> {displayDate}</span>
           </div>
         </div>
       </div>
