@@ -2,12 +2,6 @@
   "favorites": [
     {
       "userId": 1,
-      "movieId": 1226863,
-      "mediaType": "movie",
-      "id": 1
-    },
-    {
-      "userId": 1,
       "tvShowId": 76479,
       "mediaType": "tv",
       "id": 2
@@ -26,9 +20,21 @@
     },
     {
       "userId": 1,
-      "movieId": 83533,
+      "movieId": 980431,
       "mediaType": "movie",
       "id": 5
+    },
+    {
+      "userId": 1,
+      "movieId": 1470130,
+      "mediaType": "movie",
+      "id": 6
+    },
+    {
+      "userId": 1,
+      "tvShowId": 320191,
+      "mediaType": "tv",
+      "id": 7
     }
   ]
 }
