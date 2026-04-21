@@ -13,10 +13,12 @@ let content;
     content = <div>Loading;</div>
   } else if (error) {
     content = <div>Error loading tv shows.</div>;
-  } else {
-    content = data.results.map((tvshow) => {
+  } else if (data) {
+    content = data.map((tvshow) => {
       return <TvShowCard key={tvshow.id} tvshow={tvshow}></TvShowCard>
     });
+  } else {
+    content = <div>No TV shows found.</div>;
   }
     return (
     <div className="row row-cols-3 row-cols-md-2 m-4">

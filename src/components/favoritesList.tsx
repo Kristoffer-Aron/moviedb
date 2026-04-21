@@ -1,5 +1,8 @@
 import { useFetchFavoritesQuery, useRemoveFavoriteMutation, useFetchMovieDetailsQuery } from "../store";
 import { useFetchTvDetailsQuery } from "../store/apis/tvApi";
+import { Favorite } from "../types/favorites";
+import { Movie } from "../types/movies";
+import { TvShow } from "../types/tv";
 import MovieCard from "./movieCard";
 import React from 'react';
 
@@ -9,8 +12,8 @@ function FavoritesList() {
   const { data: favorites, error, isFetching } = useFetchFavoritesQuery(user);
   const [removeFavorite] = useRemoveFavoriteMutation();
 
-  const handleRemoveFavorite = async (favoriteId) => {
-    await removeFavorite({ id: favoriteId });
+  const handleRemoveFavorite = async (favorite: Favorite) => {
+    await removeFavorite(favorite);
   };
 
   let content;
@@ -24,9 +27,7 @@ function FavoritesList() {
         {favorites.map((favorite) => (
           <FavoriteCard
             key={favorite.id}
-            favoriteId={favorite.id}
-            contentId={favorite.movieId || favorite.tvShowId}
-            mediaType={favorite.mediaType || (favorite.movieId ? 'movie' : 'tv')}
+            favorite={favorite}
             onRemove={handleRemoveFavorite}
           />
         ))}
@@ -44,15 +45,22 @@ function FavoritesList() {
   );
 }
 
-function FavoriteCard({ favoriteId, contentId, mediaType, onRemove }) {
+interface FavoriteCardProps {
+  favorite: Favorite;
+  onRemove: (favorite: Favorite) => void;
+}
+
+function FavoriteCard({ favorite, onRemove }: FavoriteCardProps) {
+  const contentId = String(favorite.movieId || favorite.tvShowId || 0);
+  const mediaType = favorite.mediaType || (favorite.movieId ? 'movie' : 'tv');
+
   const { data: movie, error: movieError, isFetching: movieFetching } = useFetchMovieDetailsQuery(contentId, { skip: mediaType !== 'movie' });
   const { data: tvShow, error: tvError, isFetching: tvFetching } = useFetchTvDetailsQuery(contentId, { skip: mediaType !== 'tv' });
 
   const isFetching = mediaType === 'movie' ? movieFetching : tvFetching;
   const error = mediaType === 'movie' ? movieError : tvError;
-  const data = mediaType === 'movie' ? movie : tvShow;
-  const displayTitle = mediaType === 'movie' ? data?.title : data?.name;
-  const displayDate = mediaType === 'movie' ? data?.release_date : data?.first_air_date;
+  const displayTitle = mediaType === 'movie' ? movie?.title : tvShow?.name;
+  const displayDate = mediaType === 'movie' ? movie?.release_date : tvShow?.first_air_date;
 
   if (isFetching) {
     return (
@@ -66,6 +74,7 @@ function FavoriteCard({ favoriteId, contentId, mediaType, onRemove }) {
     );
   }
 
+  const data = mediaType === 'movie' ? movie : tvShow;
   if (error || !data) {
     return (
       <div className="col-lg-2 mb-4">
@@ -81,14 +90,14 @@ function FavoriteCard({ favoriteId, contentId, mediaType, onRemove }) {
   return (
     <div className="col-lg-2 mb-4">
       <div className="card">
-        <img src={`https://image.tmdb.org/t/p/w185${data.poster_path}`} className="card-img-top" alt="..." />
+        <img src={`https://image.tmdb.org/t/p/w185${(data as Movie | TvShow)?.poster_path || ''}`} className="card-img-top" alt="..." />
         <div className="card-body">
           <h5 className="card-title">{displayTitle?.substring(0, 200)}</h5>
           <span
             className="fas fa-star text-warning"
             aria-hidden="true"
             style={{cursor: 'pointer'}}
-            onClick={() => onRemove(favoriteId)}
+            onClick={() => onRemove(favorite)}
           ></span>
           <span className="ml-1">{data.vote_average}</span>
           <p className="card-text">{data.overview?.substring(0, 125).concat('....')}</p>

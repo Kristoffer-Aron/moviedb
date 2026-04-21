@@ -1,10 +1,12 @@
 import { useFetchSearchPersonQuery } from "../store";
 import { useSelector } from "react-redux";
+import { RootState } from "../store";
 import SearchPerson from "./searchPerson";
+import { Person, KnownFor } from "../types/person";
 import React from 'react';
 
 function SearchedPersonList() {
-  const searchTerm = useSelector((state) => {
+  const searchTerm = useSelector<RootState, string>((state) => {
     return state.searchPerson.searchTerm;
   });
   const { data, error, isFetching } = useFetchSearchPersonQuery(searchTerm);
@@ -15,7 +17,7 @@ function SearchedPersonList() {
   } else if (error) {
     content = <div>Error loading people.</div>;
   } else if (data && data.results && data.results.length > 0) {
-    content = data.results.map((person) => {
+    content = data.results.map((person: Person) => {
       const profilePath = person.profile_path ? `https://image.tmdb.org/t/p/w185${person.profile_path}` : 'https://via.placeholder.com/185x278?text=No+Image';
       return (
         <div key={person.id} className="col-lg-2 mb-4">
@@ -31,7 +33,7 @@ function SearchedPersonList() {
               {person.known_for && person.known_for.length > 0 && (
                 <p className="card-text">
                   <small>
-                    {person.known_for.map((work) => work.title || work.name).join(', ')}
+                    {person.known_for.map((work: KnownFor) => work.title || work.name).join(', ')}
                   </small>
                 </p>
               )}

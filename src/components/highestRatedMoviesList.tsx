@@ -18,10 +18,12 @@ function HighestRatedMoviesList() {
     content = <div>Loading;</div>
   } else if (error) {
     content = <div>Error loading movies.</div>;
-  } else {
-    content = data.results.filter(movie => movie.poster_path !== null && movie.vote_average !== 0).map((movie) => {
+  } else if (data) {
+    content = data.filter(movie => movie.poster_path !== null && movie.vote_average !== 0).map((movie) => {
       return <MovieCard key={movie.id} movie={movie}></MovieCard>
     });
+  } else {
+    content = <div>No movies found.</div>;
   }
 
   return (

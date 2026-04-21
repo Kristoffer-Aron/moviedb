@@ -1,11 +1,12 @@
 import { useFetchSearchMovieQuery } from "../store";
 import MovieCard from "./movieCard"
+import { RootState } from "../store";
 import { useSelector } from "react-redux";
 import React from 'react';
 
 function SearchedMoviesList() {     
     
-    const searchTerm = useSelector((state) => {
+    const searchTerm = useSelector<RootState, string>((state) => {
         return state.searchMovie.searchTerm;
       });
     //Bemærk Query-function kaldes automatisk når komponenten bliver displayed
@@ -19,10 +20,12 @@ let content;
     content = <div>Loading;</div>
   } else if (error) {
     content = <div>Error loading movies.</div>;
-  } else {
-    content = data.results.map((movie) => {
+  } else if (data) {
+    content = data.map((movie) => {
       return <MovieCard key={movie.id} movie={movie}></MovieCard>
     });
+  } else {
+    content = <div>No movies found.</div>;
   }
     return (
     <div className="row row-cols-3 row-cols-md-2 m-4">

@@ -1,4 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { TMDBApiResponse, Movie } from '../../types/movies';
+import { PersonSearchResponse } from '../../types/person';
+import { MovieVideosResponse } from '../../types/videos';
 
 const moviesApi = createApi({
   reducerPath: 'movies',
@@ -7,7 +10,7 @@ const moviesApi = createApi({
   }),
   endpoints(builder) {
     return {
-      fetchPopularMovies: builder.query({
+      fetchPopularMovies: builder.query<Movie[], void>({
         query: () => {
           return {
             url: 'discover/movie',
@@ -18,8 +21,9 @@ const moviesApi = createApi({
             method: 'GET',
           };
         },
+        transformResponse: (response: TMDBApiResponse) => response.results,
       }),
-      fetchHighestRatedMovies: builder.query({
+      fetchHighestRatedMovies: builder.query<Movie[], void>({
         query: () => {
           return {
             url: 'discover/movie',
@@ -30,8 +34,9 @@ const moviesApi = createApi({
             method: 'GET',
           };
         },
+        transformResponse: (response: TMDBApiResponse) => response.results,
       }),
-      fetchSearchMovie: builder.query({
+      fetchSearchMovie: builder.query<Movie[], string>({
         query: (searchTerm) => {
           return {
             url: 'search/movie',
@@ -42,8 +47,9 @@ const moviesApi = createApi({
             method: 'GET',
           };
         },
+        transformResponse: (response: TMDBApiResponse) => response.results,
       }),
-      fetchUpcomingMovies: builder.query({
+      fetchUpcomingMovies: builder.query<Movie[], void>({
         query: () => {
           return {
             url: 'movie/upcoming',
@@ -53,8 +59,9 @@ const moviesApi = createApi({
             method: 'GET',
           };
         },
+        transformResponse: (response: TMDBApiResponse) => response.results,
       }),
-      fetchMovieVideos: builder.query({
+      fetchMovieVideos: builder.query<MovieVideosResponse, string>({
         query: (movieId) => {
           return {
             url: `movie/${movieId}/videos`,
@@ -65,7 +72,7 @@ const moviesApi = createApi({
           };
         },
       }),
-      fetchMovieDetails: builder.query({
+      fetchMovieDetails: builder.query<Movie, string>({
         query: (movieId) => {
           return {
             url: `movie/${movieId}`,
@@ -76,7 +83,7 @@ const moviesApi = createApi({
           };
         },
       }),
-      fetchSearchPerson: builder.query({
+      fetchSearchPerson: builder.query<PersonSearchResponse, string>({
         query: (searchTerm) => {
           return {
             url: 'search/person',
@@ -88,7 +95,7 @@ const moviesApi = createApi({
           };
         },
       }),
-      fetchMovieGenres: builder.query({
+      fetchMovieGenres: builder.query<any, void>({
         query: () => {
           return {
             url: 'genre/movie/list',
@@ -99,7 +106,7 @@ const moviesApi = createApi({
           };
         },
       }),
-      fetchPopularMoviesByGenre: builder.query({
+      fetchPopularMoviesByGenre: builder.query<Movie[], string>({
         query: (genreId) => {
           return {
             url: 'discover/movie',
@@ -111,8 +118,9 @@ const moviesApi = createApi({
             method: 'GET',
           };
         },
+        transformResponse: (response: TMDBApiResponse) => response.results,
       }),
-      fetchHighestRatedMoviesByGenre: builder.query({
+      fetchHighestRatedMoviesByGenre: builder.query<Movie[], string>({
         query: (genreId) => {
           return {
             url: 'discover/movie',
@@ -124,6 +132,7 @@ const moviesApi = createApi({
             method: 'GET',
           };
         },
+        transformResponse: (response: TMDBApiResponse) => response.results,
       }),
     };
   },

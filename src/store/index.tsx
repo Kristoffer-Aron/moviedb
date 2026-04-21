@@ -21,10 +21,8 @@ export const store = configureStore({
     .concat(tvApi.middleware);
   }
 });
-console.log(store.getState());
-console.log(searchMovieReducer);
-console.log(changeSearchTerm);
-setupListeners(store.dispatch);
+
+export type RootState = ReturnType<typeof store.getState>;
 
 export { useFetchPopularMoviesQuery, useFetchHighestRatedMoviesQuery, useFetchSearchMovieQuery, useFetchUpcomingMoviesQuery, useFetchMovieVideosQuery, useFetchMovieDetailsQuery, useFetchSearchPersonQuery, useFetchMovieGenresQuery, useFetchPopularMoviesByGenreQuery, useFetchHighestRatedMoviesByGenreQuery } from './apis/moviesApi';
 export { useFetchFavoritesQuery, useAddFavoriteMutation, useRemoveFavoriteMutation } from './apis/favoritesApi';

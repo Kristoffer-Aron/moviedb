@@ -3,7 +3,7 @@ import { useFetchFavoritesQuery, useAddFavoriteMutation, useRemoveFavoriteMutati
 import { Movie } from '../types/movies';
 import React from 'react';
 
-function MovieCard({movie}: {movie: Movie}){
+function MovieCard({ movie }: { movie: Movie }) {
     const posterBasePath = 'https://image.tmdb.org/t/p/w185';
 
     // For simplicity, using a hardcoded user ID. In a real app, this would come from authentication
@@ -15,11 +15,11 @@ function MovieCard({movie}: {movie: Movie}){
     const isFavorite = favorites?.some(fav => fav.movieId === movie.id);
 
     const handleFavoriteClick = async () => {
-        if (isFavorite) {
+        if (isFavorite && favorites) {
             // Find the favorite entry and remove it
             const favoriteEntry = favorites.find(fav => fav.movieId === movie.id);
             if (favoriteEntry) {
-                await removeFavorite({ id: favoriteEntry.id });
+                await removeFavorite(favoriteEntry);
             }
         } else {
             // Add to favorites

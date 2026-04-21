@@ -19,10 +19,12 @@ function PopularMoviesList() {
     content = <div>Loading;</div>
   } else if (error) {
     content = <div>Error loading movies.</div>;
-  } else {
-    content = data.results.map((movie) => {
+  } else if (data) {
+    content = data.map((movie) => {
       return <MovieCard key={movie.id} movie={movie}></MovieCard>
     });
+  } else {
+    content = <div>No movies found.</div>;
   }
 
   return (

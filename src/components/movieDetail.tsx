@@ -4,7 +4,7 @@ import React from 'react';
 
 function MovieDetail() {
   const { movieId } = useParams();
-  const { data: videos, error, isFetching } = useFetchMovieVideosQuery(movieId);
+  const { data: videos, error, isFetching } = useFetchMovieVideosQuery(movieId!, { skip: !movieId }); // movieId! tells TypeScript we are sure movieId is not undefined. Skip the query if movieId is not available.
 
   let content;
   if (isFetching) {

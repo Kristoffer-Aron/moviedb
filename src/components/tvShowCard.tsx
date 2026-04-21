@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useFetchFavoritesQuery, useAddFavoriteMutation, useRemoveFavoriteMutation } from '../store';
+import { TvShow } from '../types/tv';
 import React from 'react';
 
-function TvShowCard({tvshow}){
+function TvShowCard({ tvshow }: { tvshow: TvShow }) {
     const posterBasePath = 'https://image.tmdb.org/t/p/w185';
 
     // For simplicity, using a hardcoded user ID. In a real app, this would come from authentication
@@ -14,11 +15,11 @@ function TvShowCard({tvshow}){
     const isFavorite = favorites?.some(fav => fav.tvShowId === tvshow.id);
 
     const handleFavoriteClick = async () => {
-        if (isFavorite) {
+        if (isFavorite && favorites) {
             // Find the favorite entry and remove it
             const favoriteEntry = favorites.find(fav => fav.tvShowId === tvshow.id);
             if (favoriteEntry) {
-                await removeFavorite({ id: favoriteEntry.id });
+                await removeFavorite(favoriteEntry);
             }
         } else {
             // Add to favorites

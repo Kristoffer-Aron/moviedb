@@ -10,7 +10,7 @@ import FavoritesList from "./components/favoritesList";
 import SearchMovie from "./components/searchMovie";
 import SearchedMovieList from "./components/searchedMovieList";
 import SearchedPersonList from "./components/searchedPersonList";
-import MovieImg from './assets/Image/movie_black2.jpg';
+import MovieImg from "./assets/Image/movie_black2.jpg";
 import Home from './components/home';
 import React from 'react';
 

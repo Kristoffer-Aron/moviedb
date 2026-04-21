@@ -12,10 +12,12 @@ let content;
     content = <div>Loading;</div>
   } else if (error) {
     content = <div>Error loading movies.</div>;
-  } else {
-    content = data.results.map((movie) => {
+  } else if (data) {
+    content = data.map((movie) => {
       return <MovieCard key={movie.id} movie={movie}></MovieCard>
     });
+  } else {
+    content = <div>No movies found.</div>;
   }
     return (
     <div className="row row-cols-3 row-cols-md-2 m-4">

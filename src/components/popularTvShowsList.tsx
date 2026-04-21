@@ -19,10 +19,12 @@ function PopularTvShowsList() {
     content = <div>Loading;</div>
   } else if (error) {
     content = <div>Error loading tv shows.</div>;
-  } else {
-    content = data.results.map((tvshow) => {
+  } else if (data) {
+    content = data.map((tvshow) => {
       return <TvShowCard key={tvshow.id} tvshow={tvshow}></TvShowCard>
     });
+  } else {
+    content = <div>No TV shows found.</div>;
   }
 
   return (

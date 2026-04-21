@@ -19,10 +19,12 @@ function HighestRatedTvShowsList() {
     content = <div>Loading;</div>
   } else if (error) {
     content = <div>Error loading tv shows.</div>;
-  } else {
-    content = data.results.filter(tvshow => tvshow.poster_path !== null && tvshow.vote_average !== 0).map((tvshow) => {
+  } else if (data) {
+    content = data.filter(tvshow => tvshow.poster_path !== null && tvshow.vote_average !== 0).map((tvshow) => {
       return <TvShowCard key={tvshow.id} tvshow={tvshow}></TvShowCard>
     });
+  } else {
+    content = <div>No TV shows found.</div>;
   }
 
   return (
