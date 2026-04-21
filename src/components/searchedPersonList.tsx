@@ -1,6 +1,7 @@
 import { useFetchSearchPersonQuery } from "../store";
 import { useSelector } from "react-redux";
 import SearchPerson from "./searchPerson";
+import React from 'react';
 
 function SearchedPersonList() {
   const searchTerm = useSelector((state) => {

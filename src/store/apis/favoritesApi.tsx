@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import React from 'react';
 
 const favoritesApi = createApi({
   reducerPath: 'favorites',          //Bliver til navnet på vores state i storen

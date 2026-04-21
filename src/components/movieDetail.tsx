@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useFetchMovieVideosQuery } from '../store';
+import React from 'react';
 
 function MovieDetail() {
   const { movieId } = useParams();

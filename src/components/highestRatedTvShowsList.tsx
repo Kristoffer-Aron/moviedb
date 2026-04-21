@@ -3,6 +3,7 @@ import { useFetchHighestRatedTvShowsQuery, useFetchHighestRatedTvShowsByGenreQue
 import TvShowCard from "./tvShowCard"
 import GenreFilter from "./genreFilter"
 import SearchPerson from "./searchPerson"
+import React from 'react';
 
 function HighestRatedTvShowsList() {
   const [selectedGenre, setSelectedGenre] = useState('');

@@ -1,6 +1,7 @@
 import { useFetchSearchMovieQuery } from "../store";
 import MovieCard from "./movieCard"
 import { useSelector } from "react-redux";
+import React from 'react';
 
 function SearchedMoviesList() {     
     

@@ -17,6 +17,18 @@
       "tvShowId": 95557,
       "mediaType": "tv",
       "id": 3
+    },
+    {
+      "userId": 1,
+      "movieId": 687163,
+      "mediaType": "movie",
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "movieId": 83533,
+      "mediaType": "movie",
+      "id": 5
     }
   ]
 }

@@ -1,6 +1,7 @@
 import { useFetchFavoritesQuery, useRemoveFavoriteMutation, useFetchMovieDetailsQuery } from "../store";
 import { useFetchTvDetailsQuery } from "../store/apis/tvApi";
 import MovieCard from "./movieCard";
+import React from 'react';
 
 function FavoritesList() {
   // For simplicity, using a hardcoded user ID. In a real app, this would come from authentication

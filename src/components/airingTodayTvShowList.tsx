@@ -1,5 +1,6 @@
 import { useFetchAiringTodayTvShowsQuery } from "../store";
 import TvShowCard from "./tvShowCard"
+import React from 'react';
 
 function AiringTodayTvShowsList() {                                      //Bemærk Query-function kaldes automatisk når komponenten bliver displayed
   const {data, error, isFetching } = useFetchAiringTodayTvShowsQuery();  //kaldet vil straks hente data i et result-objekt, som vi "destructure" til data, error og isLoading

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useFetchMovieGenresQuery } from '../store';
 import { useFetchTvGenresQuery } from '../store/apis/tvApi';
+import React from 'react';
 
 function GenreFilter({ type = 'movie', onGenreSelect }) {
   const [selectedGenre, setSelectedGenre] = useState('');

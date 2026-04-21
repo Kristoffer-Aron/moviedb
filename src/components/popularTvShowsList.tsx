@@ -3,6 +3,7 @@ import { useFetchPopularTvShowsQuery, useFetchPopularTvShowsByGenreQuery } from 
 import TvShowCard from "./tvShowCard"
 import GenreFilter from "./genreFilter"
 import SearchPerson from "./searchPerson"
+import React from 'react';
 
 function PopularTvShowsList() {
   const [selectedGenre, setSelectedGenre] = useState('');

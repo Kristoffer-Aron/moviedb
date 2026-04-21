@@ -3,6 +3,7 @@ import { useFetchPopularMoviesQuery, useFetchPopularMoviesByGenreQuery } from ".
 import MovieCard from "./movieCard"
 import GenreFilter from "./genreFilter"
 import SearchPerson from "./searchPerson"
+import React from 'react';
 
 function PopularMoviesList() {
   const [selectedGenre, setSelectedGenre] = useState('');

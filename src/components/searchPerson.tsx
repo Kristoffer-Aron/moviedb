@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { changeSearchPersonTerm } from "../store";
 import { useNavigate } from "react-router-dom";
+import React from 'react';
 
 function SearchPerson() {
   const dispatch = useDispatch();
