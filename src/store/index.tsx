@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query';
 import { moviesApi } from './apis/moviesApi';
 import { favoritesApi } from './apis/favoritesApi';
 import { tvApi } from './apis/tvApi';

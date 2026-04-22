@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import { BrowserRouter } from 'react-router-dom'
 
-const el = document.getElementById('root');
+const el = document.getElementById('root') as HTMLElement;
 const root = createRoot(el);
 
 root.render(

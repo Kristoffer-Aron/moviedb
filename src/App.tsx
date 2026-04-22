@@ -12,7 +12,6 @@ import SearchedMovieList from "./components/searchedMovieList";
 import SearchedPersonList from "./components/searchedPersonList";
 import MovieImg from "./assets/Image/movie_black2.jpg";
 import Home from './components/home';
-import React from 'react';
 
 function App() {
   return (
